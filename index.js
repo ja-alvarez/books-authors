@@ -25,8 +25,10 @@ app.listen(PORT, () => {
 
 // Vistas públicas
 app.get('/', (req, res) => {
-    res.send('Ruta home')
-})
+    res.sendFile(path.resolve(__dirname, './public/index.html'));
+});
+
+
 
 // Respuestas Not Found
 app.all('/api/*', (req, res) => {
