@@ -55,6 +55,7 @@ app.get('/', (req, res) => {
 
 
 // Respuestas Not Found
+// Respuestas Not Found
 app.all('/api/*', (req, res) => {
     res.status(404).json({
         message: 'Recurso no encontrado.'
@@ -62,5 +63,7 @@ app.all('/api/*', (req, res) => {
 });
 
 app.get('/*', (req, res) => {
-    res.send(`La ruta '${req.url}' no existe o no se encuentra disponible.`)
+    res.render('404', {
+        message: `La ruta '${req.url}' no existe o no se encuentra disponible.`
+    })
 });
