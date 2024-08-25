@@ -3,6 +3,8 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 dotenv.config();
 import db from './database/config.js';
+import { create } from 'express-handlebars';
+
 
 import * as path from 'path';
 import { fileURLToPath } from 'url';
@@ -23,9 +25,30 @@ app.listen(PORT, () => {
     console.log(`Servidor escuchando en el puerto ${PORT}`)
 });
 
+// Configuracion handlebars
+const hbs = create({
+    partialsDir: [
+        path.resolve(__dirname, './views/partials/'),
+    ],
+});
+
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+app.set('views', path.resolve(__dirname, './views'));
+
+
+
 // Vistas públicas
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve(__dirname, './public/index.html'));
+    try {
+        res.render('home', {
+            homeView: true
+        })
+    } catch (error) {
+        res.status(500).render('error', {
+            error: 'No fue posible mostrar la página, intente más tarde.'
+        })
+    }
 });
 
 
