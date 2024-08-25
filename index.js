@@ -53,8 +53,6 @@ app.get('/', (req, res) => {
 });
 
 
-
-// Respuestas Not Found
 // Respuestas Not Found
 app.all('/api/*', (req, res) => {
     res.status(404).json({
